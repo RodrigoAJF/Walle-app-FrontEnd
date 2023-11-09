@@ -70,12 +70,16 @@ button {
 }
 
 button.small {
-  background-color: #f4f4f9;
+  border-width: 2px;
+  border-color: #5936cd;
+  border-style: solid;
+  background-color: #06bee0;
   color: #010400;
+  font-weight: bold;
   font-size: 14px;
   border-radius: 8px;
-  width: 90px;
   height: 36px;
+  width: 90px;
 }
 
 input {
