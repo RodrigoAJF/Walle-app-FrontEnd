@@ -92,8 +92,8 @@
 .table-content-header {
   display: flex;
   width: 100%;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
@@ -124,4 +124,34 @@ td.right {
 
 td.center {
   text-align: center;
+}
+
+.modal-background {
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(1, 4, 0, 0.2);
+}
+
+.modal-content {
+  height: 100%;
+  width: 480px;
+  background-color: #f4f4f9;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.modal-content-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

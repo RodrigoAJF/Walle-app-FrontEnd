@@ -34,9 +34,9 @@
       </div>
       <div class="table-container">
         <div class="table-content-container">
-          <div calss="table-content-header">
-            <button class="small">Adicionar</button>
+          <div class="table-content-header">
             <h2>Últimos lançamentos</h2>
+            <button onclick="onOpenModal()" class="small">Adicionar</button>
           </div>
           <table id="finances-table">
             <tr>
@@ -48,6 +48,51 @@
             </tr>
           </table>
         </div>
+      </div>
+    </div>
+    <div id="modal" class="modal-background">
+      <div class="modal-content">
+        <div class="modal-content-header">
+          <h3>Adicionar lançamento</h3>
+          <button onclick="onCloseModal()" class="small">Fechar</button>
+        </div>
+        <form id="form-register" class="mt">
+          <label class="mt large" for="input-title">Titulo</label>
+          <input
+            placeholder="Ex: Conta de energia."
+            class="mt small"
+            id="input-title"
+            name="input-title"
+            type="text"
+            required
+          />
+          <label class="mt large" for="input-value">Valor</label>
+          <input
+            placeholder="R$ 0,00 (Use valor negativos para uma despesa.)"
+            class="mt small"
+            id="input-value"
+            name="input-value"
+            type="number"
+            required
+          />
+          <label class="mt large" for="input-date">Data</label>
+          <input
+            placeholder="DD/MM/AAAA"
+            class="mt small"
+            id="input-date"
+            name="input-date"
+            type="date"
+            required
+          />
+          <label class="mt large" for="input-category">Categoria</label>
+          <select
+            class="mt small"
+            id="input-category"
+            name="input-category"
+            required
+          ></select>
+          <button type="submit" class="full-width mt">Adicionar</button>
+        </form>
       </div>
     </div>
   </body>
