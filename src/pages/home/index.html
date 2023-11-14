@@ -19,18 +19,10 @@
         </div>
       </div>
       <div class="finance-card-container">
-        <div id="finance-card-1" class="finance-card">
-          <h3>Total de lançamentos</h3>
-        </div>
-        <div id="finance-card-2" class="finance-card">
-          <h3>Recitas</h3>
-        </div>
-        <div id="finance-card-3" class="finance-card">
-          <h3>Despesas</h3>
-        </div>
-        <div id="finance-card-4" class="finance-card">
-          <h3>Balanço</h3>
-        </div>
+        <div id="finance-card-1" class="finance-card"></div>
+        <div id="finance-card-2" class="finance-card"></div>
+        <div id="finance-card-3" class="finance-card"></div>
+        <div id="finance-card-4" class="finance-card"></div>
       </div>
       <div class="table-container">
         <div class="table-content-container">
@@ -56,8 +48,8 @@
           <h3>Adicionar lançamento</h3>
           <button onclick="onCloseModal()" class="small">Fechar</button>
         </div>
-        <form id="form-register" class="mt">
-          <label class="mt large" for="input-title">Titulo</label>
+        <form id="form-finance-release" class="mt">
+          <label class="mt large" for="input-title">Titulo: </label>
           <input
             placeholder="Ex: Conta de energia."
             class="mt small"
@@ -73,6 +65,7 @@
             id="input-value"
             name="input-value"
             type="number"
+            step="any"
             required
           />
           <label class="mt large" for="input-date">Data</label>
