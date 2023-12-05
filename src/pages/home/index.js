@@ -154,7 +154,7 @@ const renderFinancesElemnts = (data) => {
 
   // calculate 30% positive revenue
   const revenueValue = Number(
-    revenueText.textContent.replace(/[^\d.-]/g, "").replace(",", ".")
+    revenueText.textContent.replace(/[^\d-]/g, "").replace(",", ".")
   );
   const result = revenueValue * 0.003;
   console.log(result);
