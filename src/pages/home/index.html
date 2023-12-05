@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Wallet Ap Home</title>
+    <title>Wallet App Home</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="../../../styles.css" />
     <script src="index.js"></script>
@@ -14,6 +14,9 @@
           src="../../img/logo.png"
           alt="Logo Wallet App"
         />
+        <div class="navbar-calendar-container">
+          <input id="select-date" class="input-calendar" type="date" />
+        </div>
         <div id="navbar-user-container" class="navbar-user-container">
           <div id="navbar-user-avatar" class="navbar-user-avatar"></div>
         </div>
@@ -23,6 +26,7 @@
         <div id="finance-card-2" class="finance-card"></div>
         <div id="finance-card-3" class="finance-card"></div>
         <div id="finance-card-4" class="finance-card"></div>
+        <div id="finance-card-5" class="finance-card"></div>
       </div>
       <div class="table-container">
         <div class="table-content-container">
@@ -30,15 +34,7 @@
             <h2>Últimos lançamentos</h2>
             <button onclick="onOpenModal()" class="small">Adicionar</button>
           </div>
-          <table id="finances-table">
-            <tr>
-              <th>Título</th>
-              <th>Categoria</th>
-              <th>Data</th>
-              <th class="center">valor</th>
-              <th class="right">Ação</th>
-            </tr>
-          </table>
+          <table id="finances-table"></table>
         </div>
       </div>
     </div>

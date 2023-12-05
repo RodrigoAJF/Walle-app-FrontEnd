@@ -26,6 +26,22 @@
   width: auto;
 }
 
+.navbar-calendar-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 240px;
+}
+
+.input-calendar {
+  width: 156px;
+  height: 42px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 .navbar-user-container {
   display: flex;
   flex-direction: row;
@@ -102,8 +118,13 @@ table {
 }
 
 th {
+  height: 40px;
   text-align: left;
   color: #7c7c7c;
+}
+
+tr {
+  height: 32px;
 }
 
 th.right {

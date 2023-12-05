@@ -1,6 +1,57 @@
+const onLogout = () => {
+  localStorage.clear();
+  window.open("../../../index.html", "_self");
+};
+
+const onDeleteItem = async (id) => {
+  try {
+    const email = localStorage.getItem("@WalletApp:userEmail");
+    await fetch(`https://mp-wallet-app-api.herokuapp.com/finances/${id}`, {
+      method: "DELETE",
+      headers: {
+        email: email,
+      },
+    });
+    onloadFinancesData();
+  } catch (error) {
+    alert("Error ao deletar item.");
+  }
+};
+
 const renderFinancesList = (data) => {
   const table = document.getElementById("finances-table");
   table.innerHTML = "";
+
+  const tableHeader = document.createElement("tr");
+
+  const titleText = document.createTextNode("Título");
+  const titleElement = document.createElement("th");
+  titleElement.appendChild(titleText);
+  tableHeader.appendChild(titleElement);
+
+  const categoryText = document.createTextNode("Categoria");
+  const categoryElement = document.createElement("th");
+  categoryElement.appendChild(categoryText);
+  tableHeader.appendChild(categoryElement);
+
+  const dateText = document.createTextNode("Data");
+  const dateElement = document.createElement("th");
+  dateElement.appendChild(dateText);
+  tableHeader.appendChild(dateElement);
+
+  const valueText = document.createTextNode("Valor");
+  const valueElement = document.createElement("th");
+  valueElement.className = "center";
+  valueElement.appendChild(valueText);
+  tableHeader.appendChild(valueElement);
+
+  const actionText = document.createTextNode("Ação");
+  const actionElement = document.createElement("th");
+  actionElement.className = "right";
+  actionElement.appendChild(actionText);
+  tableHeader.appendChild(actionElement);
+
+  table.appendChild(tableHeader);
 
   data.map((item) => {
     const tableRow = document.createElement("tr");
@@ -40,6 +91,8 @@ const renderFinancesList = (data) => {
 
     //delete
     const deleteTD = document.createElement("td");
+    deleteTD.style.cursor = "pointer";
+    deleteTD.onclick = () => onDeleteItem(item.id);
     deleteTD.className = "right";
     const deleteText = document.createTextNode("Deletar");
     deleteTD.appendChild(deleteText);
@@ -64,26 +117,27 @@ const renderFinancesElemnts = (data) => {
   const financeCard1 = document.getElementById("finance-card-1");
   financeCard1.innerHTML = "";
 
-  const totalSubtext = document.createTextNode("Total de lançamentos");
+  const totalSubtext = document.createTextNode("Meta de investimento");
   const totalSubtextElement = document.createElement("h3");
   totalSubtextElement.appendChild(totalSubtext);
   financeCard1.appendChild(totalSubtextElement);
 
-  const totalText = document.createTextNode(totalItems);
-  const totalElement = document.createElement("h1");
-  totalElement.className = "mt small";
-  totalElement.id = "total-element";
-  totalElement.appendChild(totalText);
-  financeCard1.appendChild(totalElement);
-
-  // render revenue
+  // render investment
   const financeCard2 = document.getElementById("finance-card-2");
   financeCard2.innerHTML = "";
+  const investmentSubtext = document.createTextNode("Total investido");
+  const investmentSubtextElement = document.createElement("h3");
+  investmentSubtextElement.appendChild(investmentSubtext);
+  financeCard2.appendChild(investmentSubtextElement);
 
-  const revenueSubtext = document.createTextNode("Recitas");
+  // render revenue
+  const financeCard3 = document.getElementById("finance-card-3");
+  financeCard3.innerHTML = "";
+
+  const revenueSubtext = document.createTextNode("Receitas");
   const revenueSubtextElement = document.createElement("h3");
   revenueSubtextElement.appendChild(revenueSubtext);
-  financeCard2.appendChild(revenueSubtextElement);
+  financeCard3.appendChild(revenueSubtextElement);
 
   const revenueText = document.createTextNode(
     new Intl.NumberFormat("pt-BR", {
@@ -96,16 +150,37 @@ const renderFinancesElemnts = (data) => {
   revenueTextElement.className = "mt small";
   revenueTextElement.style.color = "#5936cd";
   revenueTextElement.appendChild(revenueText);
-  financeCard2.appendChild(revenueTextElement);
+  financeCard3.appendChild(revenueTextElement);
+
+  // calculate 30% positive revenue
+  const revenueValue = Number(
+    revenueText.textContent.replace(/[^\d.-]/g, "").replace(",", ".")
+  );
+  const result = revenueValue * 0.003;
+  console.log(result);
+
+  // show result on financeCard1
+  const resultText = document.createTextNode(
+    new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+    }).format(result)
+  );
+  const resultElement = document.createElement("h1");
+  resultElement.className = "mt small";
+  resultElement.id = "total-element";
+  resultElement.appendChild(resultText);
+  financeCard1.appendChild(resultElement);
 
   // render expenses
-  const financeCard3 = document.getElementById("finance-card-3");
-  financeCard3.innerHTML = "";
+  const financeCard4 = document.getElementById("finance-card-4");
+  financeCard4.innerHTML = "";
 
   const expensesSubtext = document.createTextNode("Despesas");
   const expensesSubtextElement = document.createElement("h3");
   expensesSubtextElement.appendChild(expensesSubtext);
-  financeCard3.appendChild(expensesSubtextElement);
+  financeCard4.appendChild(expensesSubtextElement);
 
   const expensesText = document.createTextNode(
     new Intl.NumberFormat("pt-BR", {
@@ -118,16 +193,16 @@ const renderFinancesElemnts = (data) => {
   expensesTextElement.className = "mt small";
   expensesTextElement.style.color = "red";
   expensesTextElement.appendChild(expensesText);
-  financeCard3.appendChild(expensesTextElement);
+  financeCard4.appendChild(expensesTextElement);
 
   // render balance
-  const financeCard4 = document.getElementById("finance-card-4");
-  financeCard4.innerHTML = "";
+  const financeCard5 = document.getElementById("finance-card-5");
+  financeCard5.innerHTML = "";
 
   const balanceSubtext = document.createTextNode("Balanço");
   const balanceSubtextElement = document.createElement("h3");
   balanceSubtextElement.appendChild(balanceSubtext);
-  financeCard4.appendChild(balanceSubtextElement);
+  financeCard5.appendChild(balanceSubtextElement);
 
   const balanceText = document.createTextNode(
     new Intl.NumberFormat("pt-BR", {
@@ -138,17 +213,25 @@ const renderFinancesElemnts = (data) => {
   const balanceTextElement = document.createElement("h1");
   balanceTextElement.id = "balance-element";
   balanceTextElement.className = "mt small";
-  balanceTextElement.style.color = "green";
+
+  if (totalvalue > 0) {
+    balanceTextElement.style.color = "green";
+  } else if (totalvalue < 0) {
+    balanceTextElement.style.color = "red";
+  } else {
+    balanceTextElement.style.color = "black";
+  }
+
   balanceTextElement.appendChild(balanceText);
-  financeCard4.appendChild(balanceTextElement);
+  financeCard5.appendChild(balanceTextElement);
 };
 
 const onloadFinancesData = async () => {
   try {
-    const date = "2023-11-06";
+    const dateInputValue = document.getElementById("select-date").value;
     const email = localStorage.getItem("@WalletApp:userEmail");
     const result = await fetch(
-      `https://mp-wallet-app-api.herokuapp.com/finances?date=${date}`,
+      `https://mp-wallet-app-api.herokuapp.com/finances?date=${dateInputValue}`,
       {
         method: "GET",
         headers: {
@@ -180,6 +263,8 @@ const onloadUserInfo = () => {
 
   //add logout link.
   const logoutElement = document.createElement("a");
+  logoutElement.onclick = () => onLogout();
+  logoutElement.style.cursor = "pointer";
   const logoutText = document.createTextNode("Sair");
   logoutElement.appendChild(logoutText);
   navbarUseInfo.appendChild(logoutElement);
@@ -274,7 +359,17 @@ const onCreateFinanceRelease = async (target) => {
   }
 };
 
+const setInitialDate = () => {
+  const dateInput = document.getElementById("select-date");
+  const nowDate = new Date().toISOString().split("T")[0];
+  dateInput.value = nowDate;
+  dateInput.addEventListener("change", () => {
+    onloadFinancesData();
+  });
+};
+
 window.onload = () => {
+  setInitialDate();
   onloadUserInfo();
   onloadFinancesData();
   onLoadCategories();
