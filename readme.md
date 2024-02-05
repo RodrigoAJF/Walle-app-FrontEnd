@@ -1,4 +1,4 @@
-# Wallet App
+# Wallet App  (UNFINISHED !)
 
 ## Introduction
 
